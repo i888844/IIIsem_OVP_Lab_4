@@ -27,14 +27,15 @@ namespace Lab._4
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string filePath = @"C:\Users\i8888\YandexDisk\Работы\Лабораторные работы\Основы визуального программирования\Lab. №4\output.txt";
+            var filePath =
+                @"C:\Users\i8888\YandexDisk\Работы\Лабораторные работы\Основы визуального программирования\Lab. №4\output.txt";
             SaveToFile(filePath, generatedText);
             MessageBox.Show("Файл успешно сохранен.");
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             saveFileDialog.Title = "Save File";
             saveFileDialog.ShowDialog();
@@ -48,14 +49,14 @@ namespace Lab._4
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void SaveToFile(string filePath, string text)
         {
             try
             {
-                using (StreamWriter writer = new StreamWriter(filePath))
+                using (var writer = new StreamWriter(filePath))
                 {
                     writer.Write(text);
                 }

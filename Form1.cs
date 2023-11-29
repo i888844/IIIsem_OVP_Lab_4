@@ -35,15 +35,12 @@ namespace Lab._4
                 "Вы действительно хотите закрыть программу?",
                 "Выход",
                 MessageBoxButtons.OKCancel);
-            if (result == DialogResult.OK)
-            {
-                Close();
-            }
+            if (result == DialogResult.OK) Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            inputData inputDataDialog = new inputData(this);
+            var inputDataDialog = new inputData(this);
             inputDataDialog.ShowDialog();
         }
 
@@ -54,7 +51,7 @@ namespace Lab._4
 
         public void UpdateNumbers(List<int> newNumbers)
         {
-            List<double> convertedNumbers = newNumbers.Select(number => (double)number).ToList();
+            var convertedNumbers = newNumbers.Select(number => (double)number).ToList();
             numbers = convertedNumbers;
         }
 
@@ -72,30 +69,27 @@ namespace Lab._4
         {
             dataGridView.Rows.Clear();
             dataGridView.Columns.Clear();
-            for (int i = 0; i < numbers.Count; i++)
-            {
-                dataGridView.Columns.Add("Column" + i, "A[" + i + "]");
-            }
-            DataGridViewRow row = new DataGridViewRow();
+            for (var i = 0; i < numbers.Count; i++) dataGridView.Columns.Add("Column" + i, "A[" + i + "]");
+            var row = new DataGridViewRow();
             foreach (var number in numbers)
             {
-                DataGridViewTextBoxCell cell = new DataGridViewTextBoxCell();
+                var cell = new DataGridViewTextBoxCell();
                 cell.Value = number;
                 row.Cells.Add(cell);
             }
+
             dataGridView.Rows.Add(row);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            List<double> numbers = GetNumbersFromInputData();
+            var numbers = GetNumbersFromInputData();
             DisplayNumbersInDataGridView(numbers, dataGridView1);
-            List<double> copy2 = new List<double>(numbers);
-            List<double> copy3 = new List<double>(numbers);
-            HashSet<double> uniqueNumbersSet = new HashSet<double>();
-            List<double> uniqueNumbers = new List<double>();
+            var copy2 = new List<double>(numbers);
+            var copy3 = new List<double>(numbers);
+            var uniqueNumbersSet = new HashSet<double>();
+            var uniqueNumbers = new List<double>();
             foreach (var number in numbers)
-            {
                 if (!uniqueNumbersSet.Contains(number))
                 {
                     uniqueNumbersSet.Add(number);
@@ -105,51 +99,50 @@ namespace Lab._4
                 {
                     uniqueNumbers.RemoveAll(num => num == number);
                 }
-            }
+
             DisplayNumbersInDataGridView(uniqueNumbers, dataGridView2);
             if (copy2.Count > 0)
             {
-                double firstNumber = copy2[0];
+                var firstNumber = copy2[0];
                 copy2.RemoveAll(num => num == firstNumber);
                 copy2.Insert(0, firstNumber);
             }
+
             DisplayNumbersInDataGridView(copy2, dataGridView3);
-            double average = numbers.Any() ? numbers.Average() : 0;
+            var average = numbers.Any() ? numbers.Average() : 0;
             copy3.RemoveAll(num => num == average);
             DisplayNumbersInDataGridView(copy3, dataGridView4);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            properties propertiesDialog = new properties();
+            var propertiesDialog = new properties();
             propertiesDialog.ShowDialog();
         }
 
         public string GetDataGridViewText(DataGridView dataGridView)
         {
-            StringBuilder text = new StringBuilder();
+            var text = new StringBuilder();
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    text.Append(cell.Value + "\t");
-                }
+                foreach (DataGridViewCell cell in row.Cells) text.Append(cell.Value + "\t");
                 text.AppendLine();
             }
+
             return text.ToString();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string textToSave = "Исходный массив:\n"
-                                + GetDataGridViewText(dataGridView1)
-                                + "\nМассив после удаления равных между собой элементов:\n"
-                                + GetDataGridViewText(dataGridView2)
-                                + "\nМассив после удаления равных первому элементу:\n"
-                                + GetDataGridViewText(dataGridView3)
-                                + "\nМассив после удаления равных среднему арифметическому:\n"
-                                + GetDataGridViewText(dataGridView4);
-            saving savingForm = new saving();
+            var textToSave = "Исходный массив:\n"
+                             + GetDataGridViewText(dataGridView1)
+                             + "\nМассив после удаления равных между собой элементов:\n"
+                             + GetDataGridViewText(dataGridView2)
+                             + "\nМассив после удаления равных первому элементу:\n"
+                             + GetDataGridViewText(dataGridView3)
+                             + "\nМассив после удаления равных среднему арифметическому:\n"
+                             + GetDataGridViewText(dataGridView4);
+            var savingForm = new saving();
             savingForm.SetGeneratedText(textToSave);
             savingForm.ShowDialog();
         }

@@ -26,23 +26,25 @@ namespace Lab._4
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(textBox1.Text, out int count) && int.TryParse(textBox2.Text, out int minValue) && int.TryParse(textBox3.Text, out int maxValue))
+            if (int.TryParse(textBox1.Text, out var count) && int.TryParse(textBox2.Text, out var minValue) &&
+                int.TryParse(textBox3.Text, out var maxValue))
             {
-                Random random = new Random();
-                List<int> numbers = new List<int>(); // Теперь список чисел будет типа int
-                for (int i = 0; i < count; i++)
+                var random = new Random();
+                var numbers = new List<int>();
+                for (var i = 0; i < count; i++)
                 {
-                    int randomNumber = random.Next(minValue, maxValue + 1); // Генерация случайного числа типа int
+                    var randomNumber = random.Next(minValue, maxValue + 1);
                     numbers.Add(randomNumber);
                 }
-                Form1 mainForm = Application.OpenForms.OfType<Form1>().FirstOrDefault();
+
+                var mainForm = Application.OpenForms.OfType<Form1>().FirstOrDefault();
                 mainForm?.UpdateNumbers(numbers);
-                this.Close();
+                Close();
             }
             else
             {
